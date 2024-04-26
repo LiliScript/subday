@@ -4,11 +4,25 @@ import { Button, Space } from 'antd';
 import cats from '../assets/cats.gif'
 import dog from '../assets/dog.gif'
 
+const colors = [
+    "#BD559C",
+    "#FFB3DE",
+    "#E4007C",
+    "#6583C6",
+    "#FF6FFF",
+    "#F9D73A",
+    "#FD9E1B",
+    "#FF69B4",
+    "#F15A50",
+    "#ffcc00",
+    "#0066cc"
+];
+
 const getData = (list) => {
     let data = [];
 
-    list.forEach(({ item, point }) => {
-        data = data.concat(new Array(point).fill({ item, option: item.slice(0, 48) }));
+    list.forEach(({ item, point, index }) => {
+        data = data.concat(new Array(point).fill({ item, option: item.slice(0, 48), style: { backgroundColor: colors[index % 11] } }));
     });
 
     return data;
@@ -31,7 +45,7 @@ const WheelRoulette = ({ list, onStop }) => {
     return (
         <div>
             <Space>
-                <div>
+                <div style={{ textAlign: '-webkit-center' }}>
                     {showPrizer && <p>🍦 Переможець - {data[prizeNumber].item}! 🍦</p>}
                     <Wheel
                         mustStartSpinning={mustSpin}
@@ -40,20 +54,6 @@ const WheelRoulette = ({ list, onStop }) => {
                         fontSize={8}
                         radiusLineWidth={1}
                         textDistance={50}
-                        backgroundColors={[
-                            "#BD559C",
-                            "#FFB3DE",
-                            "#E4007C",
-                            "#6583C6",
-                            "#FF6FFF",
-                            "#F9D73A",
-                            "#FD9E1B",
-                            "#FF69B4",
-                            "#F15A50",
-                            "#ffcc00",
-                            "#0066cc"
-                        ]}
-                        // textColors={['#ffffff']}
                         onStopSpinning={() => {
                             setMustSpin(false);
                         }}
