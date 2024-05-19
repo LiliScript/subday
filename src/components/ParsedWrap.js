@@ -12,7 +12,7 @@ const items = [
   },
   {
     label: 'Ігри',
-    key: 'Games',
+    key: 'games',
     icon: <AppstoreOutlined />,
   },
 ];
@@ -37,17 +37,26 @@ const ParsedWrap = ({ films, games, onClear }) => {
         <div>
             <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />
 
-            <Table films={films} games={games} type={current === 'films' ? 'films' : 'games'} />
+            {((current === 'films' && !films.length) || (current === 'games' && !games.length)) ? (
+                <div style={{ minWidth: 527, minHeight: 700 }}>
+                    <p>А де дані?</p>
+                </div>
+            ) : (
+                <div>
+                    <Table films={films} games={games} type={current === 'films' ? 'films' : 'games'} />
 
-            <div>
-                <Button type="primary" onClick={toggleWheel}>
-                    🍦💋🐣😍💫 КрУтИтИ кОлЕс0 {current === 'films' ? 'пО фіЛьмАм' : 'пО ігрАм'} 💫😍💥🍟🍦
-                </Button>
-            </div>
+                    <div>
+                        <Button type="primary" onClick={toggleWheel}>
+                            🍦💋🐣😍💫 КрУтИтИ кОлЕс0 {current === 'films' ? 'пО фіЛьмАм' : 'пО ігрАм'} 💫😍💥🍟🍦
+                        </Button>
+                    </div>
 
-            <div>
-                <Button type="link" onClick={onClear}>А давай спробуємо все спочатку...</Button>
-            </div>
+                    <div>
+                        <Button type="link" onClick={onClear}>А давай спробуємо все спочатку...</Button>
+                    </div>
+                </div>
+            )}
+                
         </div>
     );
 };

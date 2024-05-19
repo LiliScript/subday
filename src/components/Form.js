@@ -6,11 +6,11 @@ import readXlsxFile from 'read-excel-file'
 const getList = (rows) => {
   let list = [];
 
-  rows.map(([nick, item, tier, point]) => list.push({
+  rows.map(([nick, item, tier]) => list.push({
     nick, 
-    item, 
+    item: item.toString(), 
     tier: [1, 2, 3].includes(tier) ? tier : 0,
-    point: [1, 2, 6].includes(point) ? point : 0
+    point: tier === 3 ? 6 : tier === 2 ? 2 : tier === 1 ? 1 : 0,
   }));
 
   list = list.filter(({ tier }) => [1, 2, 3].includes(tier)).map((item, index) => ({ ...item, index: index + 1 }))
