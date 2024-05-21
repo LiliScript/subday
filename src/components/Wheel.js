@@ -1,22 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Wheel } from 'react-custom-roulette'
 import { Button, Space } from 'antd';
-import cats from '../assets/cats.gif'
-import dog from '../assets/dog.gif'
 
-const colors = [
-    "#BD559C",
-    "#FFB3DE",
-    "#E4007C",
-    "#6583C6",
-    "#FF6FFF",
-    "#F9D73A",
-    "#FD9E1B",
-    "#FF69B4",
-    "#F15A50",
-    "#ffcc00",
-    "#0066cc"
-];
+import { colors } from '../utils/colors';
+import { gifs, mainGif } from '../utils/gifs';
 
 const getData = (list) => {
     let data = [];
@@ -28,10 +15,18 @@ const getData = (list) => {
     return data;
 };
 
+const getRandomGif = () => {
+    const keys = Object.keys(gifs);
+    const newGifNumber = Math.floor(Math.random() * keys.length);
+
+    return keys[newGifNumber];
+};
+
 const WheelRoulette = ({ list, onStop }) => {
     const [mustSpin, setMustSpin] = useState(false);
     const [prizeNumber, setPrizeNumber] = useState(0);
     const [wheelData, setWheelData] = useState(null);
+    const [winGif, setWinGif] = useState(null);
     const showPrizer = !mustSpin && !!prizeNumber;
     const prizerInfo = showPrizer && wheelData[prizeNumber];
 
@@ -40,6 +35,7 @@ const WheelRoulette = ({ list, onStop }) => {
             const newPrizeNumber = Math.floor(Math.random() * wheelData.length);
             setPrizeNumber(newPrizeNumber);
             setMustSpin(true);
+            setWinGif(getRandomGif());
         }
     };
 
@@ -88,13 +84,13 @@ const WheelRoulette = ({ list, onStop }) => {
 
                 {mustSpin && (
                     <div style={{ marginLeft: 40 }}>
-                        <img src={cats} width="340" height="300" controls alt='Cats' />
+                        <img src={mainGif} width="340" height="300" controls alt='Cats' />
                     </div>
                 )}
 
                 {showPrizer && (
                     <div style={{ marginLeft: 40 }}>
-                        <img src={dog} width="340" height="300" controls alt='Dog' />
+                        <img src={gifs[winGif]} width="340" height="300" controls alt='Dog' />
                     </div>
                 )}
             </Space>
