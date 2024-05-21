@@ -54,7 +54,9 @@ const WheelRoulette = ({ list, onStop }) => {
             <Space>
                 <div style={{ textAlign: '-webkit-center' }}>
                     {showPrizer && (
-                        <div><p>🍦 Переможець - {prizerInfo.item}! 🍦</p></div>
+                        <div>
+                            <div>🍦 Переможець - {prizerInfo.item}! 🍦</div>
+                        </div>
                     )}
                     {wheelData && (
                         <Wheel
@@ -91,6 +93,7 @@ const WheelRoulette = ({ list, onStop }) => {
                 {showPrizer && (
                     <div style={{ marginLeft: 40 }}>
                         <img src={gifs[winGif]} width="340" height="300" controls alt='Dog' />
+                        <p style={{ fontSize: 12 }}><b style={{ color: colors[2] }}>{prizerInfo.nick}</b>, ти задоволен??!</p>
                     </div>
                 )}
             </Space>
